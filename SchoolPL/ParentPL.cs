@@ -28,15 +28,30 @@ namespace EntryLogManagement.SchoolPL
             ShowEntrylog_Table(logforparent);
         }
 
-        public void ShowLogStudentRangeTime(int id )
+        public void ShowLogStudentRangeTime(int id)
         {
-            DateTime timeStart = InputHepler.GetDate("Nhập[green] ngày bắt đầu(dd/mm/yyyy): [/]");
-            DateTime timeEnd = InputHepler.GetDate("Nhập[green] ngày kết thúc(dd/mm/yyyy): [/]");
+            while (true)
+            {
+                DateTime timeStart = InputHepler.GetDate("Nhập [green]ngày bắt đầu (dd/mm/yyyy): [/]");
+                DateTime timeEnd = InputHepler.GetDate("Nhập [green]ngày kết thúc (dd/mm/yyyy): [/]");
 
-            var logforparent = parentService.ShowLogStudentRangeTime(timeStart, timeEnd, id);
+                var logforparent = parentService.ShowLogStudentRangeTime(timeStart, timeEnd, id);
 
-            ShowEntrylog_Table(logforparent);
+                if (logforparent.Count > 0)
+                {
+                    // Nếu có bản ghi, hiển thị bảng log và thoát vòng lặp
+                    ShowEntrylog_Table(logforparent);
+                    break;
+                }
+                else
+                {
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi học sinh nào trong hệ thống cho khoảng thời gian này. Vui lòng thử lại với khoảng thời gian khác.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
 
         public void SendReport(int id)
         {

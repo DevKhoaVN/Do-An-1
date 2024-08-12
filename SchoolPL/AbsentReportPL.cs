@@ -19,20 +19,30 @@ namespace EntryLogManagement.SchoolPL
             absentreportService = new AbsentreportService();
         }
 
-        public  void ShowAbsenReportID()
+        public void ShowAbsenReportID()
         {
-            int id = InputHepler.GetIntPrompt("Nhập[green] id tìm kiếm : [/]");
 
-           
-            var absent = absentreportService.GetReportID(id);
-            if (absent.Count <= 0)
+            while (true)
             {
-                Console.WriteLine("loi");
-            }
-              
+                int id = InputHepler.GetIntPrompt("Nhập [green]id tìm kiếm : [/]");
 
-                ShowAbsentReport_Table(absent);
+               var absent = absentreportService.GetReportID(id);
+
+                if (absent.Count > 0)
+                {
+                    // Nếu có bản ghi, hiển thị bảng báo cáo và thoát vòng lặp
+                    ShowAbsentReport_Table(absent);
+                    break;
+                }
+                else
+                {
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi trong hệ thống. Vui lòng thử lại.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
 
         public void ShowAbsenReportAll()
         {
@@ -44,13 +54,28 @@ namespace EntryLogManagement.SchoolPL
 
         public void ShowAbsenReportRangeTime()
         {
-            DateTime timeStart = InputHepler.GetDate("Nhập[green] ngày bắt đầu(dd/mm/yyyy): [/]");
-            DateTime timeEnd = InputHepler.GetDate("Nhập[green] ngày kết thúc(dd/mm/yyyy): [/]");
+            while (true)
+            {
+                DateTime timeStart = InputHepler.GetDate("Nhập [green]ngày bắt đầu (dd/mm/yyyy): [/]");
+                DateTime timeEnd = InputHepler.GetDate("Nhập [green]ngày kết thúc (dd/mm/yyyy): [/]");
 
-            var absent = absentreportService.GetReportRangeTime(timeStart ,timeEnd);
+                var absent = absentreportService.GetReportRangeTime(timeStart, timeEnd);
 
-            ShowAbsentReport_Table(absent);
+                if (absent.Count > 0)
+                {
+                    // Nếu có bản ghi, hiển thị bảng báo cáo và thoát vòng lặp
+                    ShowAbsentReport_Table(absent);
+                    break;
+                }
+                else
+                {
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi học sinh nào trong hệ thống cho khoảng thời gian này. Vui lòng thử lại với khoảng thời gian khác.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
         public void ShowAbsentReport_Table(List<Absentreport> data)
         {
             int pageSize = 15;

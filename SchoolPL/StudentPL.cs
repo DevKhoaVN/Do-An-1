@@ -21,27 +21,29 @@ namespace EntryLogManagement.SchoolPL
         {
             studentService = new StudentService();
         }
-        public void ShowStudentInforÌD()
+        public void ShowStudentInforID()
         {
-            re_enter:
-            int id = InputHepler.GetIntPrompt("Nhập[green] id : [/]");
-
-            
-            var students = studentService.GetStudentID(id);
             while (true)
             {
-                if (students.Count == 0)
+                int id = InputHepler.GetIntPrompt("Nhập [green]id: [/]");
+
+                var students = studentService.GetStudentID(id);
+
+                if (students.Count > 0)
                 {
-                    AnsiConsole.MarkupLine("[red]Học sinh không tồn tại,[/] vui lòng nhập lại.");
-                    goto re_enter;
-                    
+                    // Nếu tìm thấy học sinh, hiển thị thông tin và thoát vòng lặp
+                    StudentInfor_Table(students);
+                    break;
                 }
-
-                break;
+                else
+                {
+                    // Nếu không tìm thấy học sinh, thông báo và yêu cầu nhập lại ID
+                    AnsiConsole.MarkupLine("[red]Học sinh không tồn tại,[/] vui lòng nhập lại.");
+                    Console.WriteLine();
+                }
             }
-
-            StudentInfor_Table(students);
         }
+
 
         public void ShowStudentInforAll()
         {
@@ -52,13 +54,29 @@ namespace EntryLogManagement.SchoolPL
 
         public void ShowStudentInforByRangeTime()
         {
-            DateTime timeStart = InputHepler.GetDate("Nhập[green] ngày bắt đầu(dd/mm/yyyy): [/]");
-            DateTime timeEnd = InputHepler.GetDate("Nhập[green] ngày kết thúc(dd/mm/yyyy): [/]");
+            while (true)
+            {
+                DateTime timeStart = InputHepler.GetDate("Nhập [green]ngày bắt đầu (dd/mm/yyyy): [/]");
+                DateTime timeEnd = InputHepler.GetDate("Nhập [green]ngày kết thúc (dd/mm/yyyy): [/]");
 
-            var students = studentService.GetStudentByRangeTime(timeStart , timeEnd);
+                var students = studentService.GetStudentByRangeTime(timeStart, timeEnd);
 
-            StudentInfor_Table(students);
+                if (students.Count > 0)
+                {
+                    // Nếu có bản ghi sinh viên, hiển thị thông tin và thoát vòng lặp
+                    StudentInfor_Table(students);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine();
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi học sinh nào trong hệ thống cho khoảng thời gian này. Vui lòng thử lại với khoảng thời gian khác.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
 
         // Thêm học sinh
         public void AddStudent()

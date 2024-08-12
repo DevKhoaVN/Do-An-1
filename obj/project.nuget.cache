@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vcWpaN5VQuXKdCNcvBzrJ1zUL7ErqIc1QhfhzWlAgM3t7hbCx2Ggp3TrZxKv0mrz5jM7BG6KUQD06JyR2gJIAg==",
+  "dgSpecHash": "q+uiELymP5+7zTn5FBrohqpsaV4Ja41UdbM6qNysnk5g216p0irM8CrmR0ASh6HLvtLh01mB3VHtsmfLFSMd+w==",
   "success": true,
-  "projectFilePath": "D:\\Hoc c#\\EntryLogManagement.csproj",
+  "projectFilePath": "D:\\EntryLogManagement\\EntryLogManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\khoav\\.nuget\\packages\\aforge\\2.2.5\\aforge.2.2.5.nupkg.sha512",
     "C:\\Users\\khoav\\.nuget\\packages\\aforge.video\\2.2.5\\aforge.video.2.2.5.nupkg.sha512",

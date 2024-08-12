@@ -20,11 +20,21 @@ namespace EntryLogManagement.SchoolPL
 
         public void ShowAlertToday()
         {
-             var alert = alertService.GetAlertToday();
+            var alert = alertService.GetAlertToday();
 
-            ShowAlert_Table(alert);
-
+            if (alert.Count > 0)
+            {
+                // Nếu có cảnh báo cho hôm nay, hiển thị bảng cảnh báo
+                ShowAlert_Table(alert);
+            }
+            else
+            {
+                // Nếu không có cảnh báo, thông báo cho người dùng
+                AnsiConsole.MarkupLine("[yellow]Không có cảnh báo nào cho hôm nay.[/]");
+                Console.WriteLine();
+            }
         }
+
 
         public void ShowAlertAll()
         {
