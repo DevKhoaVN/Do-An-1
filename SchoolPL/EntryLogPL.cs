@@ -24,11 +24,27 @@ namespace EntryLogManagement.SchoolPL
 
         public void ShowEntryLogID()
         {
-            int id = InputHepler.GetIntPrompt("Nhập[green] id bạn muốn tìm kiếm : [/]");
-            var log =  entryLogService.GetEtryLogID(id);
+            while (true)
+            {
+                int id = InputHepler.GetIntPrompt("Nhập [green]id bạn muốn tìm kiếm: [/]");
 
-            ShowEntrylog_Table(log);
+                var log = entryLogService.GetEtryLogID(id);
+
+                if (log.Count > 0)
+                {
+                    // Nếu có bản ghi, hiển thị bảng log và thoát vòng lặp
+                    ShowEntrylog_Table(log);
+                    break;
+                }
+                else
+                {
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi trong hệ thống. Vui lòng thử lại.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
         public void ShowEntryLogAll()
         {
 
@@ -38,13 +54,28 @@ namespace EntryLogManagement.SchoolPL
         }
         public void ShowEntryLogRangeTime()
         {
-            DateTime timeStart = InputHepler.GetDate("Nhập[green] ngày bắt đầu(dd/mm/yyyy): [/]");
-            DateTime timeEnd = InputHepler.GetDate("Nhập[green] ngày kết thúc(dd/mm/yyyy): [/]");
+            while (true)
+            {
+                DateTime timeStart = InputHepler.GetDate("Nhập [green]ngày bắt đầu (dd/mm/yyyy): [/]");
+                DateTime timeEnd = InputHepler.GetDate("Nhập [green]ngày kết thúc (dd/mm/yyyy): [/]");
 
-            var log = entryLogService.GetEntryLogRangeTime(timeStart, timeEnd);
+                var log = entryLogService.GetEntryLogRangeTime(timeStart, timeEnd);
 
-            ShowEntrylog_Table(log);
+                if (log.Count > 0)
+                {
+                    // Nếu có bản ghi, hiển thị bảng log và thoát vòng lặp
+                    ShowEntrylog_Table(log);
+                    break;
+                }
+                else
+                {
+                    // Nếu không có bản ghi, thông báo và yêu cầu nhập lại
+                    AnsiConsole.MarkupLine("[red]Không có bản ghi học sinh nào trong hệ thống cho khoảng thời gian này. Vui lòng thử lại với khoảng thời gian khác.[/]");
+                    Console.WriteLine();
+                }
+            }
         }
+
 
         public void RecoredEntryLog()
         {

@@ -20,10 +20,7 @@ namespace EntryLogManagement.SchoolBLL
         public List<Absentreport> GetReportID(int id)
         {
             var  ab = absentreportRepository.GetAbsenreportid(id);
-           if (ab.Count <= 0)
-            {
-                Console.WriteLine("Lỗi");
-            }
+          
             return ab;
         }
 

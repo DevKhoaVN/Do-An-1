@@ -194,7 +194,7 @@ internal class Program
                                                                 // Lọc theo id học sinh
                                                                 case 1:
 
-                                                                    studentPL.ShowStudentInforÌD();
+                                                                    studentPL.ShowStudentInforID();
                                                                     break;
 
                                                                 // Lọc theo lớp
